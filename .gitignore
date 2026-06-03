@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+build/
+dist/
+
+# BLE captures may contain your device address, MAC and timestamps — never commit
+*.pklg
+*.btsnoop
+*.cfa
+btsnoop_hci.log
+
+# Proprietary / private: app binaries, decompiler output, personal media
+*.apk
+*.xapk
+*.ipa
+decompiled/
+captures/
+private/
+
+# OS
+.DS_Store

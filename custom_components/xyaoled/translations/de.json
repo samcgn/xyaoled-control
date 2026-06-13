@@ -1,0 +1,129 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "description": "Wähle dein XYAO-LED-Panel aus. Es muss eingeschaltet sein und darf nicht mit der Handy-App verbunden sein.",
+        "data": {
+          "address": "Gerät"
+        }
+      },
+      "bluetooth_confirm": {
+        "description": "{name} einrichten? Das Panel darf nicht mit der Handy-App verbunden sein, während Home Assistant mit ihm kommuniziert."
+      }
+    },
+    "abort": {
+      "already_configured": "Gerät ist bereits konfiguriert",
+      "no_devices_found": "Keine XyaoLED-Geräte gefunden. Stelle sicher, dass das Panel eingeschaltet, in Bluetooth-Reichweite und nicht mit der Handy-App verbunden ist."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "description": "Falls dein Panel Befehle ignoriert (der mitgelieferte Handshake wird abgelehnt), zeichne deinen eigenen Init-Frame aus der offiziellen App auf und füge ihn hier als Hex ein. Siehe PROTOCOL.md im Repository.",
+        "data": {
+          "init_hex": "Init-Frame (Hex, optional)"
+        }
+      }
+    },
+    "error": {
+      "invalid_hex": "Kein gültiger Hex-String"
+    }
+  },
+  "entity": {
+    "button": {
+      "clear": {
+        "name": "Bildschirm löschen"
+      }
+    },
+    "notify": {
+      "panel": {
+        "name": "Panel"
+      }
+    }
+  },
+  "services": {
+    "display_text": {
+      "name": "Text anzeigen",
+      "description": "Rendert Text und zeigt ihn auf dem Panel an.",
+      "fields": {
+        "message": {
+          "name": "Nachricht",
+          "description": "Der anzuzeigende Text."
+        },
+        "color": {
+          "name": "Farbe",
+          "description": "Textfarbe (RGB)."
+        },
+        "mode": {
+          "name": "Modus",
+          "description": "Einer von: auto (wählt je nach Textbreite static oder scroll), static (zentriert, ein Bildschirm), scroll (flüssiger Lauftext, scrollt im Gerät), pages (teilt langen Text in 64px-Seiten, die nacheinander angezeigt werden)."
+        },
+        "size": {
+          "name": "Schriftgröße",
+          "description": "Schriftgröße in Pixeln (das Panel ist 16px hoch)."
+        },
+        "speed": {
+          "name": "Geschwindigkeit",
+          "description": "Anzeigedauer pro Frame / Scrollgeschwindigkeit (Geräteeinheiten, Standard 60)."
+        },
+        "font": {
+          "name": "Schriftart",
+          "description": "Pfad zu einer TrueType-Schriftdatei (optional)."
+        },
+        "clear": {
+          "name": "Vorher löschen",
+          "description": "Die Geräte-Playlist vor dem Senden löschen (sonst wird die Nachricht an die Schleife angehängt)."
+        }
+      }
+    },
+    "display_image": {
+      "name": "Bild anzeigen",
+      "description": "Zeigt ein Vollfarbbild oder ein animiertes GIF auf dem Panel an.",
+      "fields": {
+        "path": {
+          "name": "Pfad",
+          "description": "Pfad zur Bilddatei (muss in allowlist_external_dirs liegen)."
+        },
+        "fit": {
+          "name": "Einpassen",
+          "description": "contain behält das Seitenverhältnis, stretch füllt das ganze 64x16-Panel."
+        },
+        "clear": {
+          "name": "Vorher löschen",
+          "description": "Die Geräte-Playlist vor dem Senden löschen."
+        }
+      }
+    },
+    "display_pixel_art": {
+      "name": "Pixel-Art anzeigen",
+      "description": "Zeigt eine einfarbige Bitmap: ein eingebautes Muster (heart, hearts, smiley, invaders, border, checker, diag, blank) oder eine Bilddatei.",
+      "fields": {
+        "source": {
+          "name": "Quelle",
+          "description": "Mustername oder Pfad zu einer Bilddatei."
+        },
+        "color": {
+          "name": "Farbe",
+          "description": "Zeichenfarbe (RGB)."
+        },
+        "threshold": {
+          "name": "Schwellwert",
+          "description": "Graustufen-Schwellwert für die 1-Bit-Umwandlung."
+        },
+        "invert": {
+          "name": "Invertieren",
+          "description": "Helle und dunkle Pixel vertauschen."
+        },
+        "fit": {
+          "name": "Einpassen",
+          "description": "contain behält das Seitenverhältnis, stretch füllt das ganze Panel."
+        },
+        "clear": {
+          "name": "Vorher löschen",
+          "description": "Die Geräte-Playlist vor dem Senden löschen."
+        }
+      }
+    }
+  }
+}

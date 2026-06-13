@@ -1,0 +1,25 @@
+{
+  "entity": {
+    "button": {
+      "clear": {
+        "default": "mdi:broom"
+      }
+    },
+    "notify": {
+      "panel": {
+        "default": "mdi:message-text-outline"
+      }
+    }
+  },
+  "services": {
+    "display_text": {
+      "service": "mdi:format-color-text"
+    },
+    "display_image": {
+      "service": "mdi:image-outline"
+    },
+    "display_pixel_art": {
+      "service": "mdi:dots-grid"
+    }
+  }
+}

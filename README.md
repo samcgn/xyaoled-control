@@ -18,6 +18,7 @@ This project is not affiliated with or endorsed by the device vendor.
 - Animations from an animated GIF
 - Power, brightness, clear-screen/playlist
 - A capture parser for inspecting your own device's BLE traffic
+- A **Home Assistant integration** (HACS-installable) — see below
 
 ## Requirements
 
@@ -47,6 +48,11 @@ python -m xyaoled.image mylogo.png --color 0,128,255 --clear
 # full colour + animation
 python -m xyaoled.gif photo.jpg --clear
 python -m xyaoled.gif animation.gif --clear
+
+# power / brightness / clear
+python -m xyaoled.ctrl --off
+python -m xyaoled.ctrl --brightness 30
+python -m xyaoled.ctrl --clear
 
 # utilities
 python -m xyaoled.text "CLEAR" --dry-run          # render without sending
@@ -80,6 +86,16 @@ the first write whose value starts `99 aa 00 2e ff 88 1f 00 00 00 01`).
   auto-discovered rather than hard-coded.
 - **Linux**: needs BlueZ; the address is the BD_ADDR (`AA:BB:...`).
 - **Windows**: works via the WinRT backend.
+
+## Home Assistant
+
+The repo doubles as a HACS custom repository: the
+[`custom_components/xyaoled`](custom_components/xyaoled) integration exposes the panel
+in Home Assistant as a light (power/brightness), a clear-screen button, a notify
+entity, and `xyaoled.display_text` / `display_image` / `display_pixel_art` services.
+It works with a local Bluetooth adapter or ESPHome Bluetooth proxies and auto-discovers
+the panel. See [docs/home_assistant.md](docs/home_assistant.md) for install and
+automation examples.
 
 ## Protocol
 

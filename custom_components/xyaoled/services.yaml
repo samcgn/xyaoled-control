@@ -1,0 +1,110 @@
+display_text:
+  target:
+    entity:
+      integration: xyaoled
+      domain: light
+  fields:
+    message:
+      required: true
+      example: "HELLO"
+      selector:
+        text:
+    color:
+      example: "[255, 0, 0]"
+      selector:
+        color_rgb:
+    mode:
+      default: auto
+      selector:
+        select:
+          options:
+            - auto
+            - static
+            - scroll
+            - pages
+    size:
+      default: 14
+      selector:
+        number:
+          min: 6
+          max: 16
+          mode: slider
+    speed:
+      default: 60
+      selector:
+        number:
+          min: 1
+          max: 255
+          mode: slider
+    font:
+      example: "/config/fonts/PressStart2P.ttf"
+      selector:
+        text:
+    clear:
+      required: true
+      default: true
+      selector:
+        boolean:
+
+display_image:
+  target:
+    entity:
+      integration: xyaoled
+      domain: light
+  fields:
+    path:
+      required: true
+      example: "/config/www/logo.png"
+      selector:
+        text:
+    fit:
+      default: contain
+      selector:
+        select:
+          options:
+            - contain
+            - stretch
+    clear:
+      required: true
+      default: true
+      selector:
+        boolean:
+
+display_pixel_art:
+  target:
+    entity:
+      integration: xyaoled
+      domain: light
+  fields:
+    source:
+      required: true
+      example: "heart"
+      selector:
+        text:
+    color:
+      example: "[255, 0, 0]"
+      selector:
+        color_rgb:
+    threshold:
+      default: 128
+      selector:
+        number:
+          min: 0
+          max: 255
+    invert:
+      required: true
+      default: false
+      selector:
+        boolean:
+    fit:
+      default: contain
+      selector:
+        select:
+          options:
+            - contain
+            - stretch
+    clear:
+      required: true
+      default: true
+      selector:
+        boolean:

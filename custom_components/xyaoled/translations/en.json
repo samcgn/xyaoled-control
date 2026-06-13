@@ -1,0 +1,129 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "description": "Select your XYAO LED panel. It must be powered on and not connected to the phone app.",
+        "data": {
+          "address": "Device"
+        }
+      },
+      "bluetooth_confirm": {
+        "description": "Set up {name}? The panel must not be connected to the phone app while Home Assistant talks to it."
+      }
+    },
+    "abort": {
+      "already_configured": "Device is already configured",
+      "no_devices_found": "No XyaoLED devices found. Make sure the panel is powered on, in Bluetooth range, and not connected to the phone app."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "description": "If your panel ignores commands (the bundled handshake is rejected), capture your own init frame from the official app and paste it here as hex. See PROTOCOL.md in the repository.",
+        "data": {
+          "init_hex": "Init frame (hex, optional)"
+        }
+      }
+    },
+    "error": {
+      "invalid_hex": "Not a valid hex string"
+    }
+  },
+  "entity": {
+    "button": {
+      "clear": {
+        "name": "Clear screen"
+      }
+    },
+    "notify": {
+      "panel": {
+        "name": "Panel"
+      }
+    }
+  },
+  "services": {
+    "display_text": {
+      "name": "Display text",
+      "description": "Renders text and shows it on the panel.",
+      "fields": {
+        "message": {
+          "name": "Message",
+          "description": "The text to display."
+        },
+        "color": {
+          "name": "Color",
+          "description": "Text color (RGB)."
+        },
+        "mode": {
+          "name": "Mode",
+          "description": "One of: auto (picks static or scroll based on the text width), static (centered, single screen), scroll (smooth device-side scrolling), pages (splits long text into 64px pages shown one after another)."
+        },
+        "size": {
+          "name": "Font size",
+          "description": "Font size in pixels (panel is 16px high)."
+        },
+        "speed": {
+          "name": "Speed",
+          "description": "Per-frame display time / scroll speed (device units, default 60)."
+        },
+        "font": {
+          "name": "Font",
+          "description": "Path to a TrueType font file (optional)."
+        },
+        "clear": {
+          "name": "Clear first",
+          "description": "Clear the device playlist before sending (otherwise the message is appended to the loop)."
+        }
+      }
+    },
+    "display_image": {
+      "name": "Display image",
+      "description": "Shows a full-colour image or animated GIF on the panel.",
+      "fields": {
+        "path": {
+          "name": "Path",
+          "description": "Path to the image file (must be in allowlist_external_dirs)."
+        },
+        "fit": {
+          "name": "Fit",
+          "description": "contain keeps the aspect ratio, stretch fills the whole 64x16 panel."
+        },
+        "clear": {
+          "name": "Clear first",
+          "description": "Clear the device playlist before sending."
+        }
+      }
+    },
+    "display_pixel_art": {
+      "name": "Display pixel art",
+      "description": "Shows a single-colour bitmap: a built-in pattern (heart, hearts, smiley, invaders, border, checker, diag, blank) or an image file.",
+      "fields": {
+        "source": {
+          "name": "Source",
+          "description": "Pattern name or image file path."
+        },
+        "color": {
+          "name": "Color",
+          "description": "Drawing color (RGB)."
+        },
+        "threshold": {
+          "name": "Threshold",
+          "description": "Grayscale threshold for converting an image to 1-bit."
+        },
+        "invert": {
+          "name": "Invert",
+          "description": "Invert light and dark pixels."
+        },
+        "fit": {
+          "name": "Fit",
+          "description": "contain keeps the aspect ratio, stretch fills the whole panel."
+        },
+        "clear": {
+          "name": "Clear first",
+          "description": "Clear the device playlist before sending."
+        }
+      }
+    }
+  }
+}

@@ -4,6 +4,8 @@ Core protocol + BLE transport for XYAO-LED style 64x16 BLE pixel matrices.
 Reverse-engineered, unofficial. No affiliation with the vendor. For use with
 hardware you own. See PROTOCOL.md for the wire format.
 """
+from __future__ import annotations
+
 import asyncio
 import os
 
@@ -43,6 +45,16 @@ def frame(type_le: int, seq: int, params: bytes) -> bytes:
 def clear_cmd(seq: int = 1) -> bytes:
     """Clear screen + playlist (command type 0x0005)."""
     return frame(0x0005, seq, bytes([0x01, 0x01, 0x00, 0x00, 0x00, 0x00]))
+
+
+def power_cmd(on: bool, seq: int = 1) -> bytes:
+    """Panel power (command type 0x0011)."""
+    return frame(0x0011, seq, bytes([0x01 if on else 0x02, 0x01, 0x01]))
+
+
+def brightness_cmd(level: int, seq: int = 1) -> bytes:
+    """Brightness 0..100 (command type 0x0012), params `01 [level]`."""
+    return frame(0x0012, seq, bytes([0x01, max(0, min(100, int(level)))]))
 
 
 def checksum(data: bytes) -> int:

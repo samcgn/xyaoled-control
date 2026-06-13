@@ -59,9 +59,19 @@ def _render_wide(text, size, font_path, pad_left=0):
 
 
 def render_pages(text, size, font_path):
-    """Split a long string into 64px pages at word boundaries (like the app)."""
-    font = _load_font(size, font_path)
+    """Split a long string into 64px pages at word boundaries (like the app).
+
+    The size is reduced until the widest single word fits, so no page is
+    ever clipped and all pages share one consistent font size.
+    """
     d = ImageDraw.Draw(Image.new("1", (8, 8)))
+    words = text.split() or [text]
+    while size > 6:
+        font = _load_font(size, font_path)
+        if max(d.textbbox((0, 0), w, font=font)[2] for w in words) <= W - 2:
+            break
+        size -= 1
+    font = _load_font(size, font_path)
     width = lambda s: d.textbbox((0, 0), s, font=font)[2]
     pages, cur = [], ""
     for w in text.split(" "):

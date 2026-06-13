@@ -39,7 +39,16 @@ After connecting you must, in order:
      frame for your device.
 
 The device replies on `0xae02` with a status frame:
-`88 ff 00 05 01 02 [W:u16][H:u16] 04 [power] [brightness] ...`, e.g. `40 00 10 00` = 64x16.
+`88 ff 00 05 01 02 [W:u16][H:u16] 04 [power] ...`, e.g. `40 00 10 00` = 64x16 and
+`[power]` `01` = on, `02` = off. Observed full tails:
+
+```
+04 01 64 06 01 00 50 18 02 01 01 00 00 [sum]
+04 01 01 06 01 00 64 18 02 01 01 00 00 [sum]
+```
+
+The brightness (`0x64` = 100 here) shows up in the tail but at a varying offset
+between captures, so its exact field layout is still unclear.
 
 Without a valid handshake the device ignores all commands.
 
@@ -53,7 +62,7 @@ Device notification frames end with one byte equal to `sum(all preceding bytes) 
 |----------|--------------------|--------|
 | `0x0000` | init / handshake   | timestamp + token (see above) |
 | `0x0011` | power              | `02 01 01` = off, `01 01 01` = on |
-| `0x0012` | brightness         | `[level 0..100] ...` |
+| `0x0012` | brightness         | `01 [level 0..100]` (confirmed on hardware via `tools/brightness_probe.py`) |
 | `0x0005` | clear screen+playlist | `01 01 00 00 00 00` |
 | `0x0204` | colour/prepare (sent before each image) | `ff 00` |
 | `0x0207` | image / first chunk | see below |

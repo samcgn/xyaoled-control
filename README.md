@@ -98,6 +98,26 @@ It works with a local Bluetooth adapter or ESPHome Bluetooth proxies and auto-di
 the panel. See [docs/home_assistant.md](docs/home_assistant.md) for install and
 automation examples.
 
+### ESPHome / ESP32 bridge
+
+For panels out of Bluetooth range of Home Assistant, or many panels around a site,
+[`esphome/components/xyao_led`](esphome/components/xyao_led) is an ESPHome external
+component that keeps a dedicated ESP32 connected to one panel and renders text on the
+ESP32 itself (32x16 and 64x16). It exposes a message box, colour, brightness, power and
+clear in Home Assistant, plus `display_text` / `send_raw` actions for automations:
+
+```yaml
+external_components:
+  - source:
+      type: git
+      url: https://github.com/dreyfussflip/xyaoled-control
+      path: esphome/components
+    components: [xyao_led]
+```
+
+See [docs/esphome.md](docs/esphome.md) and the example
+[`esphome/xyaoled-display.yaml`](esphome/xyaoled-display.yaml).
+
 ## Protocol
 
 See [PROTOCOL.md](PROTOCOL.md) for the full reverse-engineered wire format (frame

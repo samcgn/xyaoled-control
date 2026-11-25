@@ -111,3 +111,10 @@ finalises the transfer):
 `0x0207` carries up to ~9976 GIF bytes; the remainder goes in `0x0209`. The device acks
 `0x0207` then `0x0209`, then sends a completion notify (`88 ff 05 01 ...`).
 ```
+
+## 32x16 panels
+
+A 32x16 variant uses the same frames, handshake and image format. Its status notify is
+`88 ff 00 03 01 01 20 00 10 00 04 [power] …` (type `00 03`, width `0x20`; power `01` on,
+`00` off) and 1-bit bitmaps are 16 rows × 4 bytes (64 bytes per frame, `SUBLEN = 12 + n*64`).
+The bundled sample handshake was accepted unchanged. Details in [docs/esphome.md](docs/esphome.md).
